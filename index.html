@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Viewer</title>
+<style>
+    body {
+        margin: 0;
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        font-family: Arial;
+    }
+
+    .viewer {
+        position: relative;
+    }
+
+    img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
+        cursor: pointer;
+        user-select: none;
+        padding: 10px;
+        background: rgba(0,0,0,0.4);
+        border-radius: 50%;
+    }
+
+    .left {
+        left: -60px;
+    }
+
+    .right {
+        right: -60px;
+    }
+</style>
+</head>
+<body>
+
+<div class="viewer">
+    <div class="arrow left" onclick="prev()">⬅</div>
+    <img id="image" src="image1.jpeg">
+    <div class="arrow right" onclick="next()">➡</div>
+</div>
+
+<script>
+const images = [
+    "image1.jpeg",
+    "image2.jpeg",
+    "image3.jpeg"
+];
+
+let index = 0;
+
+function showImage() {
+    document.getElementById("image").src = images[index];
+}
+
+function next() {
+    index = (index + 1) % images.length;
+    showImage();
+}
+
+function prev() {
+    index = (index - 1 + images.length) % images.length;
+    showImage();
+}
+
+// keyboard arrows support
+document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowRight") next();
+    if (e.key === "ArrowLeft") prev();
+});
+</script>
+
+</body>
+</html>
